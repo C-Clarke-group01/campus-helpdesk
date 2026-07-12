@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h1>Something went wrong</h1>
+        <p class="error-message">{{ message or "An unexpected database or application error occurred." }}</p>
+        <div class="error-actions">
+            <a href="/" class="btn btn-primary">Go to Home</a>
+            <a href="/tickets" class="btn btn-secondary">View All Tickets</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
