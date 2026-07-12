@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Ticket Details - #{{ ticket.id }}</h1>
+<p><a href="/tickets">&larr; Back to All Tickets</a></p>
+
+<div style="border: 1px solid #ccc; padding: 20px; border-radius: 5px; background-color: #f9f9f9; max-width: 600px;">
+    <h2>{{ ticket.title }}</h2>
+    <hr>
+
+    <p><strong>Requester Name:</strong> {{ ticket.requester_name }}</p>
+    <p><strong>Email Address:</strong> {{ ticket.email }}</p>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    <p><strong>Current Status:</strong> {{ ticket.status }}</p>
+
+    <p><strong>Description:</strong></p>
+    <div style="background-color: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 3px; white-space: pre-wrap;">
+        {{ ticket.description }}
+    </div>
+
+    <br>
+    <small style="color: #666;">Created At: {{ ticket.created_at }}</small>
+</div>
+{% endblock %}

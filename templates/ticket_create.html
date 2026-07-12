@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Submit a Support Ticket</h1>
+<p>Please supply distinct contextual details regarding the issue you encountered.</p>
+
+{% if errors %}
+<div style="color: red; margin-bottom: 20px;">
+    <strong>Please correct the following errors:</strong>
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form action="/tickets/new" method="POST">
+    <div>
+        <label for="requester_name">Full Name:</label><br>
+        <input type="text" id="requester_name" name="requester_name"
+               value="{{ form_data.requester_name if form_data else '' }}" required>
+    </div>
+    <br>
+    <div>
+        <label for="email">Campus Email Address:</label><br>
+        <input type="email" id="email" name="email"
+               value="{{ form_data.email if form_data else '' }}" required>
+    </div>
+    <br>
+    <div>
+        <label for="category">Issue Category:</label><br>
+        <select id="category" name="category" required>
+            <option value="" disabled {{ 'selected' if not form_data or not form_data.category }}>-- Choose Category --</option>
+            <option value="Technical" {{ 'selected' if form_data and form_data.category == 'Technical' }}>Technical</option>
+            <option value="Academic" {{ 'selected' if form_data and form_data.category == 'Academic' }}>Academic</option>
+            <option value="Finance" {{ 'selected' if form_data and form_data.category == 'Finance' }}>Finance</option>
+            <option value="Facilities" {{ 'selected' if form_data and form_data.category == 'Facilities' }}>Facilities</option>
+            <option value="Other" {{ 'selected' if form_data and form_data.category == 'Other' }}>Other</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <label for="priority">Priority Level:</label><br>
+        <select id="priority" name="priority" required>
+            <option value="Low" {{ 'selected' if form_data and form_data.priority == 'Low' }}>Low</option>
+            <option value="Medium" {{ 'selected' if not form_data or form_data.priority == 'Medium' or not form_data.priority }}>Medium</option>
+            <option value="High" {{ 'selected' if form_data and form_data.priority == 'High' }}>High</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <label for="title">Brief Summary Title:</label><br>
+        <input type="text" id="title" name="title"
+               value="{{ form_data.title if form_data else '' }}" required>
+    </div>
+    <br>
+    <div>
+        <label for="description">Detailed Description:</label><br>
+        <textarea id="description" name="description" rows="5" cols="40" required>{{ form_data.description if form_data else '' }}</textarea>
+    </div>
+    <br>
+    <div>
+        <button type="submit">Submit Ticket Report</button>
+        <a href="/tickets">Cancel</a>
+    </div>
+</form>
+{% endblock %}
