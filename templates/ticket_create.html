@@ -28,26 +28,27 @@
                value="{{ form_data.email if form_data else '' }}" required>
     </div>
     <br>
-    <div>
-        <label for="category">Issue Category:</label><br>
-        <select id="category" name="category" required>
-            <option value="" disabled {{ 'selected' if not form_data or not form_data.category }}>-- Choose Category --</option>
-            <option value="Technical" {{ 'selected' if form_data and form_data.category == 'Technical' }}>Technical</option>
-            <option value="Academic" {{ 'selected' if form_data and form_data.category == 'Academic' }}>Academic</option>
-            <option value="Finance" {{ 'selected' if form_data and form_data.category == 'Finance' }}>Finance</option>
-            <option value="Facilities" {{ 'selected' if form_data and form_data.category == 'Facilities' }}>Facilities</option>
-            <option value="Other" {{ 'selected' if form_data and form_data.category == 'Other' }}>Other</option>
-        </select>
-    </div>
-    <br>
-    <div>
-        <label for="priority">Priority Level:</label><br>
-        <select id="priority" name="priority" required>
-            <option value="Low" {{ 'selected' if form_data and form_data.priority == 'Low' }}>Low</option>
-            <option value="Medium" {{ 'selected' if not form_data or form_data.priority == 'Medium' or not form_data.priority }}>Medium</option>
-            <option value="High" {{ 'selected' if form_data and form_data.priority == 'High' }}>High</option>
-        </select>
-    </div>
+<div>
+    <label for="category">Issue Category:</label><br>
+    <select id="category" name="category" required>
+        <option value="" disabled {{ 'selected' if not form_data or not form_data.category }}>-- Choose Category --</option>
+        <option value="Technical" {{ 'selected' if form_data and form_data.category == 'Technical' }}>Technical</option>
+        <option value="Academic" {{ 'selected' if form_data and form_data.category == 'Academic' }}>Academic</option>
+        <option value="Finance" {{ 'selected' if form_data and form_data.category == 'Finance' }}>Finance</option>
+        <option value="Facilities" {{ 'selected' if form_data and form_data.category == 'Facilities' }}>Facilities</option>
+        <option value="Other" {{ 'selected' if form_data and form_data.category == 'Other' }}>Other</option>
+    </select>
+</div>
+<br>
+<div>
+    <label for="priority">Priority Level:</label><br>
+    <select id="priority" name="priority" required>
+        <option value="Low" {{ 'selected' if form_data and form_data.priority == 'Low' }}>Low</option>
+        <option value="Medium" {{ 'selected' if not form_data or form_data.priority == 'Medium' or not form_data.priority }}>Medium</option>
+        <option value="High" {{ 'selected' if form_data and form_data.priority == 'High' }}>High</option>
+    </select>
+</div>
+
     <br>
     <div>
         <label for="title">Brief Summary Title:</label><br>
