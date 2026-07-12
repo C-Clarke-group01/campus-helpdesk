@@ -11,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 from database import get_db
 
 from routers.tickets_view import tickets_router
+from routers.tickets_manage import router as tickets_manage_router
 
 app = FastAPI(title="Campus Helpdesk Ticket Management System")
 
@@ -22,3 +23,4 @@ templates = Jinja2Templates(directory="templates")
 
 
 app.include_router(tickets_router)
+app.include_router(tickets_manage_router)

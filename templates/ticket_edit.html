@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Edit Support Ticket - #{{ ticket.id }}</h1>
+    <p class="subtitle">Update the ticket details below. All fields are required.</p>
+
+    {% if errors %}
+    <div class="alert alert-error">
+        <strong>Please correct the following issues:</strong>
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="/tickets/{{ ticket.id }}/edit" method="POST" class="styled-form">
+        <div class="form-group-row">
+            <div class="form-group">
+                <label for="requester_name">Full Name</label>
+                <input type="text" id="requester_name" name="requester_name"
+                       value="{{ ticket.requester_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Campus Email Address</label>
+                <input type="email" id="email" name="email"
+                       value="{{ ticket.email }}" required>
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <div class="form-group">
+                <label for="category">Issue Category</label>
+                <select id="category" name="category" required>
+                    <option value="Technical" {{ 'selected' if ticket.category == 'Technical' }}>Technical</option>
+                    <option value="Academic" {{ 'selected' if ticket.category == 'Academic' }}>Academic</option>
+                    <option value="Finance" {{ 'selected' if ticket.category == 'Finance' }}>Finance</option>
+                    <option value="Facilities" {{ 'selected' if ticket.category == 'Facilities' }}>Facilities</option>
+                    <option value="Other" {{ 'selected' if ticket.category == 'Other' }}>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority Level</label>
+                <select id="priority" name="priority" required>
+                    <option value="Low" {{ 'selected' if ticket.priority == 'Low' }}>Low</option>
+                    <option value="Medium" {{ 'selected' if ticket.priority == 'Medium' }}>Medium</option>
+                    <option value="High" {{ 'selected' if ticket.priority == 'High' }}>High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">Ticket Status</label>
+                <select id="status" name="status" required>
+                    <option value="Open" {{ 'selected' if ticket.status == 'Open' }}>Open</option>
+                    <option value="In Progress" {{ 'selected' if ticket.status == 'In Progress' }}>In Progress</option>
+                    <option value="Resolved" {{ 'selected' if ticket.status == 'Resolved' }}>Resolved</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Brief Summary Title</label>
+            <input type="text" id="title" name="title"
+                   value="{{ ticket.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Detailed Description</label>
+            <textarea id="description" name="description" rows="6" required>{{ ticket.description }}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/tickets/{{ ticket.id }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

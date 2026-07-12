@@ -19,6 +19,7 @@ templates = Jinja2Templates(directory="templates")
 
 VALID_STATUSES = {"Open", "In Progress", "Resolved"}
 VALID_PRIORITIES = {"Low", "Medium", "High"}
+VALID_CATEGORIES = {"Technical", "Academic", "Finance", "Facilities", "Other"}
 
 
 @router.get("/tickets/{ticket_id}/edit")
@@ -30,7 +31,7 @@ def edit_ticket_form(request: Request, ticket_id: int):
             {"message": f"Ticket #{ticket_id} not found."},
             status_code=404,
         )
-    return templates.TemplateResponse(request, "ticket_edit.html", {"ticket": ticket})
+    return templates.TemplateResponse(request, "ticket_edit.html", {"ticket": ticket, "errors": []})
 
 
 @router.post("/tickets/{ticket_id}/edit")
@@ -43,22 +44,49 @@ def edit_ticket_submit(
     title: str = Form(...),
     description: str = Form(...),
     priority: str = Form(...),
+    status: str = Form(...),
 ):
+    errors = []
+    if not requester_name.strip():
+        errors.append("Requester Name cannot be empty.")
+    if not email.strip():
+        errors.append("Email cannot be empty.")
+    if category not in VALID_CATEGORIES:
+        errors.append("Invalid category selected.")
+    if not title.strip():
+        errors.append("Title cannot be empty.")
+    if not description.strip():
+        errors.append("Description cannot be empty.")
     if priority not in VALID_PRIORITIES:
-        ticket = get_ticket_by_id_for_manage(ticket_id)
+        errors.append("Invalid priority selected.")
+    if status not in VALID_STATUSES:
+        errors.append("Invalid status selected.")
+
+    if errors:
+        submitted_ticket = {
+            "id": ticket_id,
+            "requester_name": requester_name,
+            "email": email,
+            "category": category,
+            "title": title,
+            "description": description,
+            "priority": priority,
+            "status": status,
+        }
         return templates.TemplateResponse(
             request, "ticket_edit.html",
-            {"ticket": ticket, "error": "Invalid priority value."},
+            {"ticket": submitted_ticket, "errors": errors},
             status_code=400,
         )
 
     data = {
-        "requester_name": requester_name,
-        "email": email,
+        "requester_name": requester_name.strip(),
+        "email": email.strip(),
         "category": category,
-        "title": title,
-        "description": description,
+        "title": title.strip(),
+        "description": description.strip(),
         "priority": priority,
+        "status": status,
     }
     updated = update_ticket(ticket_id, data)
     if not updated:
