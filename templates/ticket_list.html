@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Submitted Support Tickets</h1>
+<p>Review active technical and administrative issues raised across campus.</p>
+
+<table class="tickets-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Requester Name</th>
+            <th>Email</th>
+            <th>Category</th>
+            <th>Title</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td>#{{ ticket.id }}</td>
+            <td>{{ ticket.requester_name }}</td>
+            <td>{{ ticket.email }}</td>
+            <td>{{ ticket.category }}</td>
+            <td>{{ ticket.title }}</td>
+            <td>{{ ticket.priority }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>
+                <a href="/tickets/{{ ticket.id }}">View Details</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">No support tickets have been reported yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
