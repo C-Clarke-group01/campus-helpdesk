@@ -39,10 +39,10 @@ def list_tickets(request: Request):
     db = get_db()
     tickets_list = []
     try:
-        # This returns your SuccessResponseModel wrapper object
+
         response_model = crud_tickets_read.get_all_tickets(db)
 
-        # Extract the underlying data list from the response model
+
         if hasattr(response_model, 'data'):
             tickets_list = response_model.data
         elif isinstance(response_model, list):
@@ -77,7 +77,7 @@ def show_ticket_details(request: Request, ticket_id: int):
         db.close()
 
     if not ticket:
-        # FIXED: Pass 'request' as the first positional argument here too!
+
         return templates.TemplateResponse(
             request,
             "error.html",
@@ -85,7 +85,7 @@ def show_ticket_details(request: Request, ticket_id: int):
             status_code=404
         )
 
-    # Already correct: Pass 'request' first
+
     return templates.TemplateResponse(
         request,
         "ticket_details.html",
@@ -126,7 +126,7 @@ def save_new_ticket(
         errors.append("Invalid option chosen for Priority.")
 
     if errors:
-        # FIXED: Pass 'request' as the first positional argument
+
         return templates.TemplateResponse(
             request,
             "ticket_create.html",
@@ -137,14 +137,14 @@ def save_new_ticket(
     try:
         response_model = crud_tickets_read.create_ticket(db, form_data)
 
-        # If your CRUD function returns an ErrorResponseModel dictionary/object
+
         if response_model and (hasattr(response_model, 'status_code') or isinstance(response_model, dict)):
             status_code = getattr(response_model, 'status_code', response_model.get('status_code', 200))
             if status_code >= 400:
                 msg = getattr(response_model, 'message', response_model.get('message', 'Database error.'))
                 errors.append(msg)
 
-                # FIXED: Pass 'request' first here as well
+
                 return templates.TemplateResponse(
                     request,
                     "ticket_create.html",
