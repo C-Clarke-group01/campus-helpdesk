@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Campus Helpdesk Ticket Management System</h1>
+<p>Report technical and administrative issues to the campus support team.</p>
+
+<div class="dashboard">
+    <div class="card">Total Tickets: {{ total }}</div>
+    <div class="card">Open: {{ open_count }}</div>
+    <div class="card">Resolved: {{ resolved }}</div>
+</div>
+{% endblock %}
