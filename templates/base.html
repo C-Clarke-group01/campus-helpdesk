@@ -2,18 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Campus Helpdesk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Helpdesk Ticket Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/tickets">All Tickets</a>
-        <a href="/tickets/new">Submit Ticket</a>
-    </nav>
+    <header class="app-header">
+        <div class="header-container">
+            <a href="/" class="app-logo">
+                <span class="logo-icon">🏢</span> Campus Helpdesk
+            </a>
+            <nav class="app-nav">
+                <a href="/">Dashboard</a>
+                <a href="/tickets">All Tickets</a>
+                <a href="/tickets/new" class="nav-btn">Submit Ticket</a>
+            </nav>
+        </div>
+    </header>
 
-    <main>
-        {% block content %}{% endblock %}
+    <main class="app-main">
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
+
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Campus Helpdesk System. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

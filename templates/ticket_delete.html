@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="confirm-container">
+    <div class="confirm-card">
+        <h1 class="text-danger">Delete Support Ticket</h1>
+        <p class="warning-text">Are you sure you want to permanently delete this support ticket? This action cannot be undone.</p>
+        
+        <div class="ticket-preview">
+            <h3>Ticket #{{ ticket.id }}: {{ ticket.title }}</h3>
+            <p><strong>Submitted By:</strong> {{ ticket.requester_name }} ({{ ticket.email }})</p>
+            <p><strong>Category:</strong> {{ ticket.category }} | <strong>Priority:</strong> {{ ticket.priority }}</p>
+            <p><strong>Status:</strong> {{ ticket.status }}</p>
+            <div class="preview-description">
+                {{ ticket.description }}
+            </div>
+        </div>
+
+        <form action="/tickets/{{ ticket.id }}/delete" method="POST" class="confirm-form">
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a href="/tickets/{{ ticket.id }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

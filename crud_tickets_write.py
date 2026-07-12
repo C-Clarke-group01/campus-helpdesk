@@ -12,7 +12,7 @@ from mysql.connector import Error
 def update_ticket(ticket_id: int, data: dict) -> bool:
     """
     Updates an existing ticket's editable fields.
-    `data` must contain: requester_name, email, category, title, description, priority
+    `data` must contain: requester_name, email, category, title, description, priority, status
     Returns True if a row was updated, False if ticket_id didn't exist.
     """
     db = get_db()
@@ -26,7 +26,8 @@ def update_ticket(ticket_id: int, data: dict) -> bool:
                 category = %s,
                 title = %s,
                 description = %s,
-                priority = %s
+                priority = %s,
+                status = %s
             WHERE id = %s
             """,
             (
@@ -36,6 +37,7 @@ def update_ticket(ticket_id: int, data: dict) -> bool:
                 data["title"],
                 data["description"],
                 data["priority"],
+                data["status"],
                 ticket_id,
             ),
         )

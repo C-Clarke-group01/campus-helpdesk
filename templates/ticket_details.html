@@ -1,25 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Ticket Details - #{{ ticket.id }}</h1>
-<p><a href="/tickets">&larr; Back to All Tickets</a></p>
-
-<div style="border: 1px solid #ccc; padding: 20px; border-radius: 5px; background-color: #f9f9f9; max-width: 600px;">
-    <h2>{{ ticket.title }}</h2>
-    <hr>
-
-    <p><strong>Requester Name:</strong> {{ ticket.requester_name }}</p>
-    <p><strong>Email Address:</strong> {{ ticket.email }}</p>
-    <p><strong>Category:</strong> {{ ticket.category }}</p>
-    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
-    <p><strong>Current Status:</strong> {{ ticket.status }}</p>
-
-    <p><strong>Description:</strong></p>
-    <div style="background-color: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 3px; white-space: pre-wrap;">
-        {{ ticket.description }}
+<div class="details-container">
+    <div class="back-link">
+        <a href="/tickets">&larr; Back to All Tickets</a>
     </div>
 
-    <br>
-    <small style="color: #666;">Created At: {{ ticket.created_at }}</small>
+    <div class="ticket-card">
+        <div class="ticket-header">
+            <div>
+                <span class="ticket-id">#{{ ticket.id }}</span>
+                <h1>{{ ticket.title }}</h1>
+            </div>
+            <div class="ticket-badges">
+                <span class="badge badge-priority-{{ ticket.priority | lower }}">{{ ticket.priority }} Priority</span>
+                <span class="badge badge-status-{{ ticket.status | lower | replace(' ', '-') }}">{{ ticket.status }}</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="ticket-info-grid">
+            <div class="info-item">
+                <span class="info-label">Requester Name</span>
+                <span class="info-value">{{ ticket.requester_name }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Campus Email Address</span>
+                <span class="info-value"><a href="mailto:{{ ticket.email }}">{{ ticket.email }}</a></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Category</span>
+                <span class="info-value">{{ ticket.category }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Submitted On</span>
+                <span class="info-value">{{ ticket.created_at }}</span>
+            </div>
+        </div>
+
+        <div class="ticket-description-section">
+            <h3 class="section-title">Issue Description</h3>
+            <div class="description-box">
+                {{ ticket.description }}
+            </div>
+        </div>
+
+        <div class="ticket-actions-section">
+            <!-- Inline Status Update Form -->
+            <form action="/tickets/{{ ticket.id }}/status" method="POST" class="inline-status-form">
+                <label for="status">Update Status:</label>
+                <select id="status" name="status">
+                    <option value="Open" {{ 'selected' if ticket.status == 'Open' }}>Open</option>
+                    <option value="In Progress" {{ 'selected' if ticket.status == 'In Progress' }}>In Progress</option>
+                    <option value="Resolved" {{ 'selected' if ticket.status == 'Resolved' }}>Resolved</option>
+                </select>
+                <button type="submit" class="btn btn-secondary btn-sm">Update</button>
+            </form>
+
+            <!-- Management Buttons -->
+            <div class="mgmt-buttons">
+                <a href="/tickets/{{ ticket.id }}/edit" class="btn btn-primary">Edit Ticket</a>
+                <a href="/tickets/{{ ticket.id }}/delete" class="btn btn-danger">Delete Ticket</a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

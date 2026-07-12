@@ -1,12 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Campus Helpdesk Ticket Management System</h1>
-<p>Report technical and administrative issues to the campus support team.</p>
+<div class="dashboard-hero">
+    <h1>Welcome to Campus Helpdesk</h1>
+    <p>Submit, track, and manage student and staff technical and administrative support requests in one place.</p>
+    <div class="hero-actions">
+        <a href="/tickets/new" class="btn btn-primary btn-large">Submit a Support Ticket</a>
+        <a href="/tickets" class="btn btn-secondary btn-large">View All Active Tickets</a>
+    </div>
+</div>
 
-<div class="dashboard">
-    <div class="card">Total Tickets: {{ total }}</div>
-    <div class="card">Open: {{ open_count }}</div>
-    <div class="card">Resolved: {{ resolved }}</div>
+<h2 class="section-title">Support Dashboard Overview</h2>
+<div class="dashboard-grid">
+    <div class="card card-total">
+        <div class="card-icon">📊</div>
+        <div class="card-info">
+            <span class="card-count">{{ total }}</span>
+            <span class="card-label">Total Submissions</span>
+        </div>
+    </div>
+    
+    <div class="card card-open">
+        <div class="card-icon">⏳</div>
+        <div class="card-info">
+            <span class="card-count">{{ open_count }}</span>
+            <span class="card-label">Open Tickets</span>
+        </div>
+    </div>
+
+    <div class="card card-resolved">
+        <div class="card-icon">✅</div>
+        <div class="card-info">
+            <span class="card-count">{{ resolved }}</span>
+            <span class="card-label">Resolved Tickets</span>
+        </div>
+    </div>
 </div>
 {% endblock %}

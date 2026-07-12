@@ -26,7 +26,7 @@ load_dotenv()  # reads variables from .env into the environment
 DB_CONFIG = {
     "host": os.getenv("DB_HOST", "localhost"),
     "user": os.getenv("DB_USER", "root"),
-    "password": os.getenv("DB_PASSWORD", ""),      # put your MySQL password here
+    "password": os.getenv("DB_PASSWORD", "24588"),      # put your MySQL password here
     "database": os.getenv("DB_NAME", "campus_helpdesk"),
 }
 
